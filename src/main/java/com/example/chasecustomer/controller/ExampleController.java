@@ -23,14 +23,18 @@ class ExampleController {
     }
 
     @GetMapping("/todo")
-    public ResponseEntity<Todo> getTodoFromExternalApi() {
+    public ResponseEntity<String> getTodoFromExternalApi() {
         // Define the external API endpoint URL
         String externalApiUrl = "https://jsonplaceholder.typicode.com/todos/1";
 
         // Make a GET request and get the response as a Todo object
-        ResponseEntity<Todo> response = restTemplate.getForEntity(externalApiUrl, Todo.class);
+        ResponseEntity<Todo> response1 = restTemplate.getForEntity(externalApiUrl, Todo.class);
 
         // Return the Todo object in the response
+
+        ResponseEntity<String> response = restTemplate.getForEntity(externalApiUrl, String.class);
+        String jsonResponse = response.getBody();
+        System.out.println("Raw JSON response: " + jsonResponse);
         return response;
     }
 }
